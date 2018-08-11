@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import InfoIndex from "./components/info/InfoIndex.vue";
+import GameIndex from "./components/game/GameIndex.vue";
 
 Vue.use(Router);
 
@@ -10,8 +11,13 @@ export default new Router({
    routes: [
       {
          path: "/",
-         name: "home",
-         component: Home
+         name: "InfoIndex",
+         component: InfoIndex
+      },
+      {
+         path: "/play",
+         name: "GameIndex",
+         component: GameIndex
       }
    ]
 });

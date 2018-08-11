@@ -1,5 +1,7 @@
 <template>
-  
+   <div>
+      <h1>The full game</h1>
+   </div>
 </template>
 
 <script>
