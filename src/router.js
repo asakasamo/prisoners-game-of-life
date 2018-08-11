@@ -11,12 +11,12 @@ export default new Router({
    routes: [
       {
          path: "/",
-         name: "InfoIndex",
+         name: "info",
          component: InfoIndex
       },
       {
          path: "/play",
-         name: "GameIndex",
+         name: "play",
          component: GameIndex
       }
    ]

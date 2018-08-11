@@ -1,19 +1,23 @@
 <template>   
    <main>
-      <b-tabs v-model="tabIndex">
-         <b-tab title="Introduction">
-            <Introduction v-bind="{ goToNextTab }" />
-         </b-tab>
-         <b-tab title="The Prisoner's Dilemma">
-            <PrisonersDilemmaInfo goToNextTab />
-         </b-tab>
-         <b-tab title="The Game of Life">
-            <GameOfLifeInfo goToNextTab />
-         </b-tab>
-         <b-tab title="The Full Game">
-            <FullGameInfo goToNextTab />
-         </b-tab>
-      </b-tabs>
+
+      <b-card no-body class="m-3">
+         <b-tabs card v-model="tabIndex">
+            <b-tab title="Introduction" :title-link-class="tabStyleClass(0)">
+               <Introduction v-bind="{ goToTab }" />
+            </b-tab>
+            <b-tab title="The Prisoner's Dilemma" :title-link-class="tabStyleClass(1)">
+               <PrisonersDilemmaInfo v-bind="{ goToTab }" />
+            </b-tab>
+            <b-tab title="The Game of Life" :title-link-class="tabStyleClass(2)">
+               <GameOfLifeInfo v-bind="{ goToTab }" />
+            </b-tab>
+            <b-tab title="The Full Game" :title-link-class="tabStyleClass(3)">
+               <FullGameInfo v-bind="{ goToTab }" />
+            </b-tab>
+         </b-tabs>
+      </b-card>
+      
 
    </main>
 </template>
@@ -37,13 +41,17 @@ export default {
       };
    },
    methods: {
-      goToNextTab() {
-         this.tabIndex++;
+      goToTab(idx) {
+         this.tabIndex = idx;
+      },
+      tabStyleClass(idx) {
+         if (this.tabIndex === idx) {
+            return ["activeTab"];
+         }
       }
    }
 };
 </script>
 
-
-<style lang="scss">
+<style lang="scss" scoped>
 </style>

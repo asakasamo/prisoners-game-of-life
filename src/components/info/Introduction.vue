@@ -1,22 +1,28 @@
 <template>
    <div class="wrapper">
       
-      <h2>Introduction</h2>
+      <h3>Introduction</h3>
 
-      <p>This 0-player game is a visual representation of the ::prisoner's dilemma::, with its rules applied to 
-      the well-known cellular automaton, the ::Game of Life:: . In order to really understand what's going on,
-      you need to first understand both concepts.</p>
+      <p>This 0-player game is a visual representation of <strong>The Prisoner's Dilemma</strong>, 
+      with its rules applied to Conway's <b>Game of Life</b>. It's recommended that you get familiar
+      with both concepts in order to really appreciate what's going on before moving on - otherwise,
+      it won't make much sense or be nearly as interesting.</p>
 
-      <b-link @click="goToNextTab()">The Prisoner's Dilemma</b-link>
-      <b-link @click="goToNextTab()">The Game of Life</b-link>
-      <b-link @click="goToNextTab()">The Full Game</b-link>
+      <p>
+         (If you already get the gist of it, you can skip all of this and <a href="/play">play the game!)</a>
+      </p>
 
+      <ul>
+         <li><b-link @click="goToTab(1)">The Prisoner's Dilemma</b-link></li>
+         <li><b-link @click="goToTab(2)">The Game of Life</b-link></li>
+         <li><b-link @click="goToTab(3)">The Full Game</b-link></li>
+      </ul>
    </div>
 </template>
 
 <script>
 export default {
-   props: ["goToNextTab"],
+   props: ["goToTab"],
    data() {
       return {};
    },

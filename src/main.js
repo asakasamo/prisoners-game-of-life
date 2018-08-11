@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import BootstrapVue from "bootstrap-vue";
+import PayoffMatrix from "./components/info/PayoffMatrix.vue";
+import StrategyTable from "./components/info/StrategyTable.vue";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -10,6 +12,8 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
+Vue.component("payoff-matrix", PayoffMatrix);
+Vue.component("strategy-table", StrategyTable);
 
 new Vue({
    router,
