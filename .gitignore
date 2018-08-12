@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 /dist
+notes.txt
+placeholder.js
 
 # local env files
 .env.local
