@@ -1,7 +1,8 @@
 <template>   
    <div id="app">
       <header>
-         <h1>The Prisoner's Dilemma Meets The Game of Life</h1>
+         <h1>The Prisoner's Game of Life</h1>
+         <h3>When Theories Collide</h3>
       </header>
 
       <div class="content-wrapper">
@@ -37,7 +38,7 @@ export default {
    props: ["pageName"],
    data() {
       return {
-         tabIndex: 2
+         tabIndex: 0
       };
    }
 };

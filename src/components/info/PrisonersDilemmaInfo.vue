@@ -58,8 +58,8 @@
 
          <li>
             At the end of the turn, each player is rewarded their respective payoff, per the payoff matrix.
-            For example, if player 1 cooperates and player 2 defects, player 2 receives T 
-            (the temptation payoff) while player 1 receives S (the sucker payoff).
+            (For example, if player 1 cooperates and player 2 defects, player 2 receives 0 while player 1 
+            receives -3.)
          </li>
 
          <li>
@@ -68,8 +68,8 @@
       </ul>
 
       <p>
-         After a set number of turns, the game ends. The winner is the player who received the 
-         highest payoff score by the end.
+         After a set number of turns, the game ends. The winner is the player who has the
+         highest payoff score by the end. (Keep in mind, the payoffs are all negative.)
       </p>
 
       <h3>Prisoner Strategies</h3>
@@ -82,12 +82,17 @@
       <div class="center-flex">
          <strategy-table />
       </div>
+
+      <b-link @click="goToTab(2)">
+         Next: The Game of Life
+      </b-link>
    
    </div>
 </template>
 
 <script>
 export default {
+   props: ["goToTab"],
    components: {}
 };
 </script>

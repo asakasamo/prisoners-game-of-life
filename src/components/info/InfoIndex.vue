@@ -1,5 +1,5 @@
 <template>   
-   <main>
+   <div>
 
       <b-card no-body class="m-3">
          <b-tabs card v-model="tabIndex">
@@ -12,14 +12,14 @@
             <b-tab title="The Game of Life" :title-link-class="tabStyleClass(2)">
                <GameOfLifeInfo v-bind="{ goToTab }" />
             </b-tab>
-            <b-tab title="The Full Game" :title-link-class="tabStyleClass(3)">
+            <b-tab title="The Prisoner's Game of Life" :title-link-class="tabStyleClass(3)">
                <FullGameInfo v-bind="{ goToTab }" />
             </b-tab>
          </b-tabs>
       </b-card>
       
 
-   </main>
+   </div>
 </template>
 
 <script>
