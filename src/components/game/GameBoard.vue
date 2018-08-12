@@ -20,6 +20,7 @@
 <script>
 import { Player } from "./logic/player.js";
 import { Board } from "./logic/board.js";
+import Battle from "./logic/battle.js";
 
 export default {
    data() {
@@ -28,7 +29,7 @@ export default {
       };
    },
    created() {
-      const b = new Board(10, 10);
+      console.table(Battle.getScoresForGeneration(this.board));
    }
 };
 </script>

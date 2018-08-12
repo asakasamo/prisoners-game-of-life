@@ -1,5 +1,8 @@
 import { Player } from "./player";
 
+/**
+ * The Board class, which keeps track of a 2d array of players.
+ */
 export class Board {
    constructor(width, height) {
       this.width = width;
@@ -12,7 +15,7 @@ export class Board {
       for (let i = 0; i < this.width; i++) {
          cells.push([]);
          for (var j = 0; j < this.height; j++) {
-            cells[i].push(new Player(7));
+            cells[i].push(new Player(7, i, j));
          }
       }
 
@@ -25,14 +28,14 @@ export class Board {
       for (var i = 0; i < this.width; i++) {
          arr.push([]);
          for (var j = 0; j < this.height; j++) {
-            arr[i].push(new Player(Math.floor(Math.random() * 8)));
+            arr[i].push(new Player(Math.floor(Math.random() * 8), i, j));
          }
       }
 
       return arr;
    }
 
-   getNeighbors(x, y) {
+   getNeighborCoords(x, y) {
       var neighbors = [];
 
       // get each surrounding cell, wrapping around the edges if necessary
@@ -52,5 +55,9 @@ export class Board {
 
    randomize() {
       this.cells = this.getRandomBoard();
+   }
+
+   getCell(x, y) {
+      return this.cells[x][y];
    }
 }

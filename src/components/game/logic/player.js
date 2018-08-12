@@ -17,7 +17,7 @@
  */
 
 export class Player {
-   constructor(strat) {
+   constructor(strat, x, y) {
       const colors = [
          "red",
          "orange",
@@ -40,7 +40,9 @@ export class Player {
          "The Quaker"
       ];
 
+      this.stratId = strat;
       this.strategy = Player.getStrategyString(strat);
+      [this.x, this.y] = [x, y];
       this.firstMove = parseFloat(this.strategy[0]);
       this.prevMove = this.firstMove;
       this.color = colors[strat];
