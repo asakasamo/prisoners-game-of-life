@@ -26,7 +26,9 @@ export class Player {
          "blue",
          "indigo",
          "violet",
-         "green"
+         "green",
+         "black",
+         "white"
       ];
 
       const names = [
@@ -37,7 +39,9 @@ export class Player {
          "The Backstabber",
          "The Troll",
          "Tit-for-tat",
-         "The Quaker"
+         "The Quaker",
+         "GOL_ALIVE",
+         "GOL_DEAD"
       ];
 
       this.stratId = strat;
@@ -60,5 +64,17 @@ export class Player {
 
    getNextMove(oppMove) {
       return parseInt(this.strategy[2 - oppMove]);
+   }
+
+   isAlive() {
+      return this.stratId === 8;
+   }
+
+   getToggled() {
+      if (this.isAlive()) {
+         return new Player(9, this.x, this.y);
+      } else {
+         return new Player(8, this.x, this.y);
+      }
    }
 }

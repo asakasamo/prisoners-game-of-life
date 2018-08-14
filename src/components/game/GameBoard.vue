@@ -2,10 +2,12 @@
    <div>
       <h1>Game Board</h1>
       <table>
-         <tr v-for="(row, i) in board.cells" :key="i">
-            <td v-for="(col, j) in row" :key="j">
-               <div :style="{ backgroundColor: col.color }">
-                  {{ col.strategy }}
+         <tr v-for="(row, x) in board.cells" :key="x">
+            <td v-for="(col, y) in row" :key="y">
+               <div 
+                  :style="{ backgroundColor: col.color }"
+                  @click="setCell(x, y)"
+                  >
                </div>
             </td>
          </tr>
@@ -13,6 +15,10 @@
 
       <b-btn @click="board.randomize()">
          Randomize Board
+      </b-btn>
+
+      <b-btn @click="goToNextGen()">
+         Next Gen
       </b-btn>
    </div>
 </template>
@@ -25,11 +31,20 @@ import Battle from "./logic/battle.js";
 export default {
    data() {
       return {
-         board: new Board(10, 10)
+         board: new Board(5, 5)
       };
    },
    created() {
-      console.table(Battle.getScoresForGeneration(this.board));
+      this.board.setTestBoard();
+   },
+   methods: {
+      goToNextGen() {
+         this.board.cells = Battle.getNextGeneration(this.board);
+         // this.board.cells = Battle.getNextGenerationGameOfLife(this.board);
+      },
+      setCell(x, y) {
+         this.board.cells[x][y] = this.board.cells[x][y].getToggled();
+      }
    }
 };
 </script>

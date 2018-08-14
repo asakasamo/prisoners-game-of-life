@@ -1,4 +1,12 @@
 import { Player } from "./player";
+import { Board } from "./board";
+
+const TEMPTATION = 0,
+   REWARD = -1,
+   PUNISHMENT = -2,
+   SUCKER = -3,
+   COOPERATE = 1,
+   DEFECT = 0;
 
 export default {
    /**
@@ -11,21 +19,21 @@ export default {
       p1move = parseInt(p1move);
       p2move = parseInt(p2move);
 
-      if (p1move == 1 && p2move == 1)
+      if (p1move == COOPERATE && p2move == COOPERATE)
          //both cooperate
-         return [3, 3];
+         return [REWARD, REWARD];
 
-      if (p1move == 0 && p2move == 0)
+      if (p1move == DEFECT && p2move == DEFECT)
          //both defect
-         return [1, 1];
+         return [PUNISHMENT, PUNISHMENT];
 
-      if (p1move == 1 && p2move == 0)
+      if (p1move == COOPERATE && p2move == DEFECT)
          //p1 cooperate, p2 defect
-         return [0, 5];
+         return [SUCKER, TEMPTATION];
 
-      if (p1move == 0 && p2move == 1)
+      if (p1move == DEFECT && p2move == COOPERATE)
          //p2 cooperate, p1 defect
-         return [5, 0];
+         return [TEMPTATION, SUCKER];
 
       return [0, 0];
    },
@@ -116,5 +124,83 @@ export default {
       }
 
       return scores;
+   },
+
+   /**
+    * Returns the next generation of the given game board.
+    * @param {Board} board the game board
+    */
+   getNextGeneration(board) {
+      let nextGen = board.getBlankBoard();
+      let scores = this.getScoresForGeneration(board);
+
+      for (let row of board.cells) {
+         for (let cell of row) {
+            //for this cell,
+
+            //find highest neighbor score
+            let bestScore = scores[cell.x][cell.y];
+            let bestNeighbor = cell;
+            const neighborCoords = board.getNeighborCoords(cell.x, cell.y);
+
+            //search for the highest scoring neighbor
+            for (let neighborCoord of neighborCoords) {
+               let [nx, ny] = neighborCoord;
+               if (scores[nx][ny] > bestScore) {
+                  bestScore = scores[nx][ny];
+                  bestNeighbor = board.getCell(nx, ny);
+               }
+            }
+
+            //  adopt that strategy
+            nextGen[cell.x][cell.y] = new Player(
+               bestNeighbor.stratId,
+               cell.x,
+               cell.y
+            );
+         }
+      }
+
+      return nextGen;
+   },
+
+   /**
+    * Returns the next generation for a given Game of Life board
+    * @param {*} board
+    */
+   getNextGenerationGameOfLife(board) {
+      let nextGen = board.getBlankBoard();
+
+      for (let x in board.cells) {
+         for (let y in board.cells[x]) {
+            [x, y] = [parseFloat(x), parseFloat(y)];
+            let aliveNextGen = false;
+            let liveNeighbors = 0;
+            const neighborCoords = board.getNeighborCoords(x, y);
+
+            //search for the highest scoring neighbor
+            for (let neighborCoord of neighborCoords) {
+               let [nx, ny] = neighborCoord;
+               if (board.cells[nx][ny].isAlive()) {
+                  liveNeighbors++;
+               }
+            }
+
+            const cell = board.cells[x][y];
+            if (
+               cell.isAlive() &&
+               (liveNeighbors === 2 || liveNeighbors === 3)
+            ) {
+               aliveNextGen = true;
+            } else if (cell.isAlive()) {
+               aliveNextGen = false;
+            } else if (!cell.isAlive() && liveNeighbors === 3) {
+               aliveNextGen = true;
+            }
+
+            nextGen[x][y] = aliveNextGen ? new Player(8) : new Player(9);
+         }
+      }
+      return nextGen;
    }
 };
