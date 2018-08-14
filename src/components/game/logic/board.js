@@ -36,6 +36,10 @@ export class Board {
       return cells;
    }
 
+   getCellsCopy() {
+      return [...this.cells];
+   }
+
    setTestBoard() {
       let cells = [
          [new Player(2, 0, 0), new Player(0, 0, 1)],

@@ -5,7 +5,7 @@
          <tr v-for="(row, x) in board.cells" :key="x">
             <td v-for="(col, y) in row" :key="y">
                <div 
-                  :style="{ backgroundColor: col.color }"
+                  :style="{ backgroundColor: board.cells[x][y].color }"
                   @click="setCell(x, y)"
                   >
                </div>
@@ -26,7 +26,7 @@
 <script>
 import { Player } from "./logic/player.js";
 import { Board } from "./logic/board.js";
-import Battle from "./logic/battle.js";
+import Game from "./logic/game.js";
 
 export default {
    data() {
@@ -35,15 +35,16 @@ export default {
       };
    },
    created() {
-      this.board.setTestBoard();
+      this.board.setGameOfLifeBoard();
    },
    methods: {
       goToNextGen() {
-         this.board.cells = Battle.getNextGeneration(this.board);
-         // this.board.cells = Battle.getNextGenerationGameOfLife(this.board);
+         this.board.cells = Game.getNextGenerationGameOfLife(this.board);
       },
       setCell(x, y) {
-         this.board.cells[x][y] = this.board.cells[x][y].getToggled();
+         const copy = this.board.getCellsCopy();
+         copy[x][y] = copy[x][y].getToggled();
+         this.board.cells = copy;
       }
    }
 };

@@ -13,7 +13,7 @@
  *    1    |     0      |     0     |    1       < Suspicious Troll
  *    0    |     0      |     0     |    0       < The Paranoid
  *
- * @param {number} strat a number from 0-7
+ * @param {number} strat a number from 0-7; or, 8 (alive) or 9 (dead) in the regular Game of Life
  */
 
 export class Player {
