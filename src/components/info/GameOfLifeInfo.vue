@@ -13,7 +13,7 @@
 
       <p>
          The universe steps through rounds, modifying the grid every round based on each cell's interaction with its 
-         8 neighbors. The rules of each turn are as follows:
+         8 neighbors. At each step, the following transitions occur:
       </p>
 
       <ol>
@@ -23,6 +23,9 @@
          <li>Any dead cell with exactly three live neighbors becomes a live cell (as if by reproduction).</li>
       </ol>
 
+      <h4>Give it a try! Click on a cell to toggle its state.</h4>
+      <GameOfLife />
+
       <b-link @click="goToTab(3)">
          Next: The Prisoner's Game of Life
       </b-link>
@@ -30,8 +33,9 @@
 </template>
 
 <script>
+import GameOfLife from "../game/GameOfLife.vue";
 export default {
    props: ["goToTab"],
-   components: {}
+   components: { GameOfLife }
 };
 </script>

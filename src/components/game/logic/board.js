@@ -55,9 +55,9 @@ export class Board {
       const de = new Player(9);
 
       let cells = [
-         [al, de, de, de, de],
-         [de, al, al, de, de],
-         [al, al, de, de, de],
+         [de, de, de, de, de],
+         [de, de, de, de, de],
+         [de, al, al, al, de],
          [de, de, de, de, de],
          [de, de, de, de, de]
       ];

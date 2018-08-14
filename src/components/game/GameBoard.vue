@@ -55,14 +55,17 @@ table {
 }
 
 td {
-   width: 30px;
-   height: 30px;
-   margin: 2px;
+   width: 40px;
+   height: 40px;
+   padding: 2px;
    div {
       width: 100%;
       height: 100%;
    }
+   div:hover {
+      cursor: pointer;
+   }
 
-   transition: all 0.5s;
+   transition: all 0.2s;
 }
 </style>
