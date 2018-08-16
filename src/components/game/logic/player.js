@@ -17,41 +17,58 @@
  */
 
 export class Player {
+   static colors = [
+      "gray",
+      "magenta",
+      "navy",
+      "coral",
+      "red",
+      "purple",
+      "blue",
+      "green",
+      "black",
+      "white"
+   ];
+
+   static names = [
+      "Never Cooperate",
+      "Suspicious Troll",
+      "Suspicious Tit-for-tat",
+      "Guilty Conscience",
+      "Backstabber",
+      "Troll",
+      "Tit-for-tat",
+      "The Quaker",
+      "GOL_ALIVE",
+      "GOL_DEAD"
+   ];
+
    constructor(strat, x, y) {
-      const colors = [
-         "red",
-         "orange",
-         "yellow",
-         "magenta",
-         "blue",
-         "indigo",
-         "violet",
-         "green",
-         "black",
-         "white"
-      ];
-
-      const names = [
-         "The Paranoid",
-         "Suspicious Troll",
-         "Suspicious Tit-for-tat",
-         "The Guilty Conscience",
-         "The Backstabber",
-         "The Troll",
-         "Tit-for-tat",
-         "The Quaker",
-         "GOL_ALIVE",
-         "GOL_DEAD"
-      ];
-
+      [this.x, this.y] = [x, y];
       this.stratId = strat;
       this.strategy = Player.getStrategyString(strat);
-      [this.x, this.y] = [x, y];
       this.firstMove = parseFloat(this.strategy[0]);
       this.prevMove = this.firstMove;
-      this.color = colors[strat];
-      this.name = names[strat];
+      this.color = Player.colors[strat];
+      this.name = Player.names[strat];
       this.score = 0;
+   }
+
+   static get getStrategyDescriptors() {
+      return this.names
+         .filter((val, idx) => idx < 8)
+         .map((val, idx) => {
+            const stratString = Player.getStrategyString(idx);
+            return {
+               name: val,
+               color: this.colors[idx],
+               stratId: idx,
+               start: parseFloat(stratString[0]),
+               onCooperate: parseFloat(stratString[1]),
+               onDefect: parseFloat(stratString[2])
+            };
+         })
+         .reverse();
    }
 
    static getStrategyString(strat) {
@@ -67,14 +84,19 @@ export class Player {
    }
 
    isAlive() {
-      return this.stratId === 8;
+      return this.stratId === PlayerType.GOL_ALIVE;
    }
 
    getToggled() {
       if (this.isAlive()) {
-         return new Player(9, this.x, this.y);
+         return new Player(PlayerType.GOL_DEAD);
       } else {
-         return new Player(8, this.x, this.y);
+         return new Player(PlayerType.GOL_ALIVE);
       }
    }
 }
+
+export const PlayerType = {
+   GOL_ALIVE: 8,
+   GOL_DEAD: 9
+};

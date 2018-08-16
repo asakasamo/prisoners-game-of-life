@@ -98,7 +98,7 @@ export default {
     * @param {Board} board the game board
     */
    getScoresForGeneration: function(board) {
-      const scoresMatrix = this.getScoresMatrix(50);
+      const scoresMatrix = this.getScoresMatrix(100);
 
       // fill it with empty array
       let scores = [];

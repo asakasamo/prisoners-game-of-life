@@ -1,10 +1,11 @@
 <template>
    <table>
       <tr>
-         <td colspan=2></td>
+         <td colspan=3></td>
          <th colspan=2>Response to Opponent</th>
       </tr>
       <tr>
+         <th class="color-col">Color</th>
          <th>Name</th>
          <th>First Turn</th>
          <th>Opponent Cooperates</th>
@@ -12,15 +13,14 @@
       </tr>
 
       <tr v-for="(strategy, i) in strategies" :key="i">
-         <th>
-            <span :style="{ 
-               color: strategy.color, 
-               borderLeft: '10px solid ' + strategy.color 
-            }"
-            >
-               {{ strategy.name }}
-            </span>
-         </th>
+         <td class="color-col">
+            <div 
+               class="strat-color" 
+               :style="{ backgroundColor: strategy.color }"
+               >
+            </div>
+         </td>
+         <th :style="{ color: strategy.color }"> {{ strategy.name }} </th>
          <td :class="'a' + strategy.start">{{ strategy.start ? "cooperate" : "defect" }}</td>
          <td :class="'a' + strategy.onCooperate">{{ strategy.onCooperate ? "cooperate" : "defect" }}</td>
          <td :class="'a' + strategy.onDefect">{{ strategy.onDefect ? "cooperate" : "defect" }}</td>
@@ -30,67 +30,12 @@
 </template>
 
 <script>
+import { Player } from "../game/logic/player";
+
 export default {
    data() {
       return {
-         strategies: [
-            {
-               name: "The Quaker",
-               start: 1,
-               onCooperate: 1,
-               onDefect: 1,
-               color: "limegreen"
-            },
-            {
-               name: "Tit-for-tat",
-               start: 1,
-               onCooperate: 1,
-               onDefect: 0,
-               color: "blue"
-            },
-            {
-               name: "The Troll",
-               start: 1,
-               onCooperate: 0,
-               onDefect: 1,
-               color: "purple"
-            },
-            {
-               name: "The Backstabber",
-               start: 1,
-               onCooperate: 0,
-               onDefect: 0,
-               color: "red"
-            },
-            {
-               name: "The Guilty Conscience",
-               start: 0,
-               onCooperate: 1,
-               onDefect: 1,
-               color: "orange"
-            },
-            {
-               name: "Suspicious Tit-for-tat",
-               start: 0,
-               onCooperate: 1,
-               onDefect: 0,
-               color: "skyblue"
-            },
-            {
-               name: "Suspicious Troll",
-               start: 0,
-               onCooperate: 0,
-               onDefect: 1,
-               color: "pink"
-            },
-            {
-               name: "The Paranoid",
-               start: 0,
-               onCooperate: 0,
-               onDefect: 0,
-               color: "gray"
-            }
-         ]
+         strategies: Player.getStrategyDescriptors
       };
    },
    methods: {}
@@ -102,13 +47,21 @@ export default {
 table {
    border-collapse: collapse;
    border-style: hidden;
+   background-color: #eee;
+   text-align: center;
 }
 
 td,
 th {
-   width: 200px;
+   width: 180px;
    height: 50px;
    border: 1px solid black;
+}
+
+td.color-col,
+th.color-col {
+   width: auto;
+   padding: 5px;
 }
 
 .a1 {
@@ -116,5 +69,11 @@ th {
 }
 .a0 {
    color: red;
+}
+
+.strat-color {
+   width: 10px;
+   height: 10px;
+   display: inline-block;
 }
 </style>

@@ -105,4 +105,8 @@ export class Board {
    getCell(x, y) {
       return this.cells[x][y];
    }
+
+   setCellStrategy(stratId, x, y) {
+      this.cells[x][y] = new Player(stratId, x, y);
+   }
 }
