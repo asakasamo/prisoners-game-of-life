@@ -10,6 +10,7 @@
                   :id="`cell-${x}-${y}`"
                   :style="{ backgroundColor: board.cells[x][y].color }"
                   @click="setPopoverCell(x, y)"
+                  :class="{ selected: isCurrentPopoverCell(x, y) }"
                   >
                   <b-popover
                      :target="`cell-${x}-${y}`"
@@ -115,15 +116,17 @@ table {
 }
 
 td {
-   width: 20px;
-   height: 20px;
+   width: 30px;
+   height: 30px;
    padding: 2px;
    > div {
       width: 100%;
       height: 100%;
    }
-   div:hover {
+   div:hover,
+   div.selected {
       cursor: pointer;
+      border: 1px solid yellow;
    }
 
    transition: all 0.2s;

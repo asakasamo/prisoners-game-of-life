@@ -99,6 +99,7 @@ td {
    }
    div:hover {
       cursor: pointer;
+      border: 1px solid yellow;
    }
 
    transition: all 0.2s;
