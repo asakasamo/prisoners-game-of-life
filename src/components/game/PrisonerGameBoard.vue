@@ -1,8 +1,8 @@
 <template>
    <div>
       <h1>Game Board</h1>
-      <input type="text" v-model="boardWidth" >
-      <input type="text" v-model="boardHeight" >
+      <input type="number" v-model="boardWidth">
+      <input type="number" v-model="boardHeight">
       <table>
          <tr v-for="(row, x) in board.cells" :key="x">
             <td v-for="(col, y) in row" :key="y">
@@ -12,23 +12,30 @@
                   @click="setPopoverCell(x, y)"
                   :class="{ selected: isCurrentPopoverCell(x, y) }"
                   >
+
+                  <!-- Strategy picker popover -->
                   <b-popover
                      :target="`cell-${x}-${y}`"
                      placement="right"
                      :show="isCurrentPopoverCell(x, y)"
                      triggers=""
                      >
+
+                     <!-- Popover Title -->
                      <template slot="title">
                         <h6>
                            Select a strategy
+
+                           <!-- Close button -->
                            <b-btn @click="currentPopover = null" class="close-btn btn-danger">
                               <span>
                                  &times;
                               </span>
                            </b-btn>
                         </h6>
-                        
                      </template>
+
+                     <!-- Strategy picker -->
                      <strategy-picker
                         :selected-id="board.cells[x][y].stratId" 
                         v-on:select-strat-id="(stratId) => setCellStrategy(stratId, x, y)" 
@@ -38,6 +45,10 @@
             </td>
          </tr>
       </table>
+
+      <div>
+         <StrategyCounter :strategyCount="this.strategyCount" />
+      </div>
 
       <b-btn @click="board.randomize()">
          Randomize Board
@@ -53,18 +64,20 @@
 import { Board } from "./logic/board.js";
 import Game from "./logic/game.js";
 import StrategyPicker from "./StrategyPicker.vue";
+import StrategyCounter from "./StrategyCounter.vue";
 
 export default {
    data() {
       return {
-         boardWidth: 2,
-         boardHeight: 2,
+         boardWidth: 20,
+         boardHeight: 10,
          board: null,
-         currentPopover: null
+         currentPopover: null,
+         strategyCount: null
       };
    },
    created() {
-      this.board = new Board(this.boardWidth, this.boardHeight);
+      this.board = new Board(this.boardHeight, this.boardWidth);
       this.board.randomize();
    },
    methods: {
@@ -96,10 +109,17 @@ export default {
       },
       boardHeight() {
          this.board = new Board(this.boardWidth, this.boardHeight);
+      },
+      board: {
+         deep: true,
+         handler: function() {
+            this.strategyCount = this.board.getStrategyCounterStrings();
+         }
       }
    },
    components: {
-      StrategyPicker
+      StrategyPicker,
+      StrategyCounter
    }
 };
 </script>

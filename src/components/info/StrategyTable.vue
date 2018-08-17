@@ -8,8 +8,8 @@
          <th class="color-col">Color</th>
          <th>Name</th>
          <th>First Turn</th>
-         <th>Opponent Cooperates</th>
-         <th>Opponent Defects</th>
+         <th>Opp. Cooperates</th>
+         <th>Opp. Defects</th>
       </tr>
 
       <tr v-for="(strategy, i) in strategies" :key="i">

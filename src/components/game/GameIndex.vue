@@ -2,7 +2,7 @@
    <div>
       <b-tabs>
          <b-tab title="Game">
-            <game-board />
+            <prisoner-game-board />
          </b-tab>
          <b-tab title="Reference">
             <strategy-table />
@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import GameBoard from "./GameBoard.vue";
+import PrisonerGameBoard from "./PrisonerGameBoard.vue";
 
 export default {
    components: {
-      GameBoard
+      PrisonerGameBoard
    }
 };
 </script>

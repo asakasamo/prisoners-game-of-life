@@ -109,4 +109,27 @@ export class Board {
    setCellStrategy(stratId, x, y) {
       this.cells[x][y] = new Player(stratId, x, y);
    }
+
+   getStrategyCounterStrings() {
+      let strats = Player.getStrategyDescriptors;
+      return strats
+         .map((strategy) => {
+            return {
+               name: strategy.name,
+               count: this.countCellsWithStrategy(strategy.stratId),
+               color: strategy.color
+            };
+         })
+         .sort((strat1, strat2) => strat2.count - strat1.count);
+   }
+
+   countCellsWithStrategy(stratId) {
+      let count = 0;
+      for (let row of this.cells) {
+         for (let cell of row) {
+            if (cell.stratId === stratId) count++;
+         }
+      }
+      return count;
+   }
 }
