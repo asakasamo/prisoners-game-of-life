@@ -3,6 +3,20 @@
       <h1>Game Board</h1>
       <input type="number" v-model="boardWidthInput">
       <input type="number" v-model="boardHeightInput">
+      <input type="checkbox" v-model="showScores">
+
+      <b-btn @click="board.randomize()">
+         Randomize Board
+      </b-btn>
+
+      <b-btn @click="goToNextGen()">
+         Next Round
+      </b-btn>
+
+      <b-btn @click="goToPrevGen()" :disabled="generationIdx === 0">
+         Previous Round
+      </b-btn>
+
       <table>
          <tr v-for="(row, x) in board.cells" :key="x">
             <td v-for="(col, y) in row" :key="y">
@@ -41,6 +55,10 @@
                         v-on:select-strat-id="(stratId) => setCellStrategy(stratId, x, y)" 
                         />
                   </b-popover>
+
+                  <span v-if="showScores" class="score">
+                     {{ scores[x][y] }}
+                  </span>
                </div>
             </td>
          </tr>
@@ -49,14 +67,6 @@
       <div>
          <StrategyCounter :strategyCount="this.strategyCount" />
       </div>
-
-      <b-btn @click="board.randomize()">
-         Randomize Board
-      </b-btn>
-
-      <b-btn @click="goToNextGen()">
-         Next Gen
-      </b-btn>
    </div>
 </template>
 
@@ -73,7 +83,11 @@ export default {
          boardHeightInput: 10,
          board: null,
          currentPopover: null,
-         strategyCount: null
+         strategyCount: null,
+         scores: null,
+         showScores: false,
+         pastGenerations: [],
+         generationIdx: 0
       };
    },
    created() {
@@ -82,7 +96,13 @@ export default {
    },
    methods: {
       goToNextGen() {
+         this.pastGenerations.push(this.board.cells);
          this.board.cells = Game.getNextGeneration(this.board);
+         this.generationIdx++;
+      },
+      goToPrevGen() {
+         this.board.cells = this.pastGenerations.pop();
+         this.generationIdx--;
       },
       setPopoverCell(x, y) {
          if (!this.isCurrentPopoverCell(x, y)) {
@@ -121,6 +141,7 @@ export default {
          deep: true,
          handler: function() {
             this.strategyCount = this.board.getStrategyCounterStrings();
+            this.scores = Game.getScoresForGeneration(this.board);
          }
       }
    },
@@ -142,13 +163,22 @@ table {
    line-height: 1;
 }
 
+.score {
+   color: white;
+   font-size: 0.5em;
+}
+
 td {
    width: 30px;
    height: 30px;
    padding: 2px;
+
    > div {
       width: 100%;
       height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
    }
    div:hover,
    div.selected {
