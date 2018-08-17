@@ -4,8 +4,10 @@
          <b-tab title="Game">
             <prisoner-game-board />
          </b-tab>
-         <b-tab title="Reference">
-            <strategy-table />
+         <b-tab title="Strategy Reference">
+            <div class="center-flex">
+               <strategy-table />
+            </div>
          </b-tab>
       </b-tabs>
    </div>
@@ -22,4 +24,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.center-flex {
+   display: flex;
+   justify-content: center;
+}
 </style>

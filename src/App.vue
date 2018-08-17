@@ -74,10 +74,10 @@ div.content-wrapper {
    display: flex;
 
    nav {
-      flex: 1 4;
+      flex: 1;
    }
    main {
-      flex: 4 1;
+      flex: 6;
    }
 }
 

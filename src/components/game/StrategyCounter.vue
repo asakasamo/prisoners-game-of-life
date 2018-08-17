@@ -3,8 +3,8 @@
       <table>
          <tr>
             <td></td>
-            <th>Strategy</th>
-            <th>Population</th>
+            <th class="strategy">Strategy</th>
+            <th>Pop.</th>
          </tr>
 
          <tr 
@@ -36,14 +36,16 @@ export default {
 table {
    border-collapse: collapse;
    border-style: hidden;
-   background: #eee;
 }
 
 td,
 th {
    border-bottom: 1px solid gray;
-   border-right: 1px solid gray;
    padding: 5px;
+}
+
+.strategy {
+   width: 160px;
 }
 
 div.strat-color {
