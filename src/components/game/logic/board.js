@@ -150,4 +150,22 @@ export class Board {
       }
       return count;
    }
+
+   hasSameCells(cells) {
+      if (
+         !cells ||
+         this.width != cells.length ||
+         this.height != cells[0].length
+      )
+         return false;
+
+      let different = false;
+      for (let x = 0; x < this.width; x++) {
+         for (let y = 0; y < this.height; y++) {
+            if (this.cells[x][y].stratId !== cells[x][y].stratId)
+               different = true;
+         }
+      }
+      return !different;
+   }
 }

@@ -38,21 +38,6 @@ export default {
       this.board.setGameOfLifeBoard();
       this.toggleAutoPlay();
    },
-   computed: {
-      cellsChanged() {
-         let changed = false;
-         for (let x = 0; x < this.board.width; x++) {
-            for (let y = 0; y < this.board.height; y++) {
-               if (
-                  this.prevGen &&
-                  this.board.cells[x][y].stratId !== this.prevGen[x][y].stratId
-               )
-                  changed = true;
-            }
-         }
-         return changed;
-      }
-   },
    methods: {
       nextGenClick() {
          this.stopAutoPlay();

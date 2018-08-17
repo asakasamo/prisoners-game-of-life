@@ -90,15 +90,22 @@ export default {
          generationIdx: 0
       };
    },
+   computed: {
+      boardIsStabilized() {
+         return this.board.hasSameCells(Game.getNextGeneration(this.board));
+      }
+   },
    created() {
       this.resetBoard();
       this.board.randomize();
    },
    methods: {
       goToNextGen() {
-         this.pastGenerations.push(this.board.cells);
-         this.board.cells = Game.getNextGeneration(this.board);
-         this.generationIdx++;
+         if (!this.boardIsStabilized) {
+            this.pastGenerations.push(this.board.cells);
+            this.board.cells = Game.getNextGeneration(this.board);
+            this.generationIdx++;
+         }
       },
       goToPrevGen() {
          this.board.cells = this.pastGenerations.pop();
