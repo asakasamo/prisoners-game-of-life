@@ -1,8 +1,8 @@
 <template>
    <div>
       <h1>Game Board</h1>
-      <input type="number" v-model="boardWidth">
-      <input type="number" v-model="boardHeight">
+      <input type="number" v-model="boardWidthInput">
+      <input type="number" v-model="boardHeightInput">
       <table>
          <tr v-for="(row, x) in board.cells" :key="x">
             <td v-for="(col, y) in row" :key="y">
@@ -69,15 +69,15 @@ import StrategyCounter from "./StrategyCounter.vue";
 export default {
    data() {
       return {
-         boardWidth: 20,
-         boardHeight: 10,
+         boardWidthInput: 20,
+         boardHeightInput: 10,
          board: null,
          currentPopover: null,
          strategyCount: null
       };
    },
    created() {
-      this.board = new Board(this.boardHeight, this.boardWidth);
+      this.resetBoard();
       this.board.randomize();
    },
    methods: {
@@ -101,14 +101,21 @@ export default {
       },
       refreshBoard() {
          this.board.cells = this.board.getCellsCopy();
+      },
+      resetBoard() {
+         this.board = new Board(
+            parseFloat(this.boardHeightInput),
+            parseFloat(this.boardWidthInput),
+            this.board
+         );
       }
    },
    watch: {
-      boardWidth() {
-         this.board = new Board(this.boardWidth, this.boardHeight);
+      boardWidthInput() {
+         this.resetBoard();
       },
-      boardHeight() {
-         this.board = new Board(this.boardWidth, this.boardHeight);
+      boardHeightInput() {
+         this.resetBoard();
       },
       board: {
          deep: true,

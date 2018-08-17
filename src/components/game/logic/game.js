@@ -112,7 +112,6 @@ export default {
             let totalScore = 0;
             let neighbors = board.getNeighborCoords(cell.x, cell.y);
 
-            console.log(neighbors, cell.x, cell.y);
             for (let neighborCoord of neighbors) {
                totalScore +=
                   scoresMatrix[cell.stratId][

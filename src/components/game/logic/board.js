@@ -5,18 +5,20 @@ import { isObject } from "util";
  * The Board class, which keeps track of a 2d array of players.
  */
 export class Board {
-   constructor(width, height) {
+   constructor(width, height, oldBoard = null) {
       this.width = width;
       this.height = height;
-      this.cells = this.getBlankBoard();
+
+      if (!oldBoard) this.cells = this.getBlankBoard();
+      else this.cells = this.getTruncatedBoard(oldBoard);
    }
 
    getBlankBoard() {
       let cells = [];
-      for (let i = 0; i < this.width; i++) {
+      for (let x = 0; x < this.width; x++) {
          cells.push([]);
-         for (var j = 0; j < this.height; j++) {
-            cells[i].push(new Player(7, i, j));
+         for (var y = 0; y < this.height; y++) {
+            cells[x].push(new Player(7, x, y));
          }
       }
 
@@ -26,10 +28,26 @@ export class Board {
    getRandomBoard() {
       let cells = [];
 
-      for (let i = 0; i < this.width; i++) {
+      for (let x = 0; x < this.width; x++) {
          cells.push([]);
-         for (let j = 0; j < this.height; j++) {
-            cells[i].push(new Player(Math.floor(Math.random() * 8), i, j));
+         for (let y = 0; y < this.height; y++) {
+            cells[x].push(new Player(Math.floor(Math.random() * 8), x, y));
+         }
+      }
+
+      return cells;
+   }
+
+   getTruncatedBoard(oldBoard) {
+      let cells = [];
+      for (let x = 0; x < this.width; x++) {
+         cells.push([]);
+         for (var y = 0; y < this.height; y++) {
+            if (oldBoard.cells[x] && oldBoard.cells[x][y]) {
+               cells[x].push(new Player(oldBoard.cells[x][y].stratId, x, y));
+            } else {
+               cells[x].push(new Player(7, x, y));
+            }
          }
       }
 
