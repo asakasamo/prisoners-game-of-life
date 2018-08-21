@@ -23,7 +23,7 @@
 
                <tr>
                   <td colspan="2">
-                     <b-btn @click="board.randomize()">
+                     <b-btn @click="randomizeBoard">
                         Randomize Board
                      </b-btn>
                   </td>
@@ -144,6 +144,10 @@ export default {
       this.board.randomize();
    },
    methods: {
+      randomizeBoard() {
+         this.board.randomize();
+         this.resetBoardHistory();
+      },
       goToNextGen() {
          if (!this.boardIsStabilized) {
             this.pastGenerations.push(this.board.cells);
@@ -244,15 +248,12 @@ table {
    }
 
    > div:first-child {
-      flex: 1;
    }
 
    > div:nth-child(2) {
-      flex: 7;
    }
 
    > div:last-child {
-      flex: 4;
    }
 }
 
@@ -263,6 +264,8 @@ table {
 }
 
 .board td {
+   min-width: 30px;
+   min-height: 30px;
    width: 30px;
    height: 30px;
    padding: 2px;

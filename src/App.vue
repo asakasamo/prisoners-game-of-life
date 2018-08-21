@@ -1,28 +1,10 @@
 <template>   
    <div id="app">
-      <header>
-         <h1>The Prisoner's Game of Life</h1>
-         <h3>When Theories Collide</h3>
-      </header>
-
       <div class="content-wrapper">
-         <nav>
-            <div class="sidebar">
-               <a href="/" :class="{ active: $router.currentRoute.name === 'info' }">
-                  <h3>How it works</h3>
-               </a>
-
-               <a href="/play" :class="{ active: $router.currentRoute.name === 'play' }">
-                  <h3>Play!</h3>
-               </a>
-            </div>
-         </nav>
-
          <main>
             <router-view />
          </main>
       </div>
-
    </div>
 </template>
 
@@ -46,21 +28,28 @@ export default {
 
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c");
 $primary: skyblue;
+$grid: rgba(0, 0, 0, 0.07);
+
+body {
+   background-color: #ddd;
+   background-size: 20px 20px;
+   background-image: linear-gradient(to right, $grid 1px, transparent 1px),
+      linear-gradient(to bottom, $grid 1px, transparent 1px);
+}
 
 header {
    overflow: hidden;
 }
 
-body {
-   background-color: #ddd;
-}
-
 #app {
+   font-family: "M PLUS Rounded 1c", sans-serif;
+
    display: flex;
    min-height: 100vh;
    flex-direction: column;
-   font-family: "Avenir", Helvetica, Arial, sans-serif;
 }
 
 header {
@@ -86,7 +75,6 @@ nav {
 }
 
 main {
-   background-color: $primary;
 }
 
 div.sidebar {
