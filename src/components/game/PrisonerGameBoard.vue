@@ -237,11 +237,6 @@ table {
    font-size: 0.5em;
 }
 
-.center-flex {
-   display: flex;
-   justify-content: center;
-}
-
 .main-wrapper {
    > div {
       padding: 10px;

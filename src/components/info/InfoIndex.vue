@@ -2,7 +2,7 @@
    <div>
 
       <b-card no-body class="m-3">
-         <b-tabs card v-model="tabIndex">
+         <b-tabs pills card v-model="tabIndex" nav-class="tab-style">
             <b-tab title="Introduction" :title-link-class="tabStyleClass(0)">
                <Introduction v-bind="{ goToTab }" />
             </b-tab>
@@ -46,7 +46,7 @@ export default {
       },
       tabStyleClass(idx) {
          if (this.tabIndex === idx) {
-            return ["activeTab"];
+            return ["active-tab"];
          }
       }
    }
@@ -54,4 +54,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tab-style {
+   font-size: 100px;
+}
+.active-tab {
+   font-size: 100px;
+}
 </style>
+
+

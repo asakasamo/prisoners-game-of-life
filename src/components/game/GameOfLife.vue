@@ -1,23 +1,31 @@
 <template>
    <div>
-      <b-btn @click="nextGenClick()">
-         Next Step
-      </b-btn>
 
-      <b-btn @click="toggleAutoPlay()">
-         {{ autoPlayId ? "Pause" : "Autoplay" }}
-      </b-btn>
-      <table>
-         <tr v-for="(row, x) in board.cells" :key="x">
-            <td v-for="(col, y) in row" :key="y">
-               <div 
-                  :style="{ backgroundColor: board.cells[x][y].color }"
-                  @click="setCell(x, y)"
-                  >
-               </div>
-            </td>
-         </tr>
-      </table>
+      <div class="center-flex">
+         <div class="mr-3 center-flex">
+            <b-button-group vertical>
+               <b-btn @click="nextGenClick()" variant="info">
+                  Next Step
+               </b-btn>
+
+               <b-btn @click="toggleAutoPlay()" variant="info">
+                  {{ autoPlayId ? "Pause" : "Autoplay" }}
+               </b-btn>
+            </b-button-group>
+         </div>
+
+         <table>
+            <tr v-for="(row, x) in board.cells" :key="x">
+               <td v-for="(col, y) in row" :key="y">
+                  <div 
+                     :style="{ backgroundColor: board.cells[x][y].color }"
+                     @click="setCell(x, y)"
+                     >
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
 
    </div>
 </template>

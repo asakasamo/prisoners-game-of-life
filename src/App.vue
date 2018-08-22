@@ -30,11 +30,13 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c");
-$primary: skyblue;
-$grid: rgba(0, 0, 0, 0.07);
+
+@import url("~bootstrap/dist/css/bootstrap.css");
+@import url("~bootstrap-vue/dist/bootstrap-vue.css");
+
+$grid: rgba(0, 0, 0, 0.06);
 
 body {
-   background-color: #ddd;
    background-size: 20px 20px;
    background-image: linear-gradient(to right, $grid 1px, transparent 1px),
       linear-gradient(to bottom, $grid 1px, transparent 1px);
@@ -52,12 +54,6 @@ header {
    flex-direction: column;
 }
 
-header {
-   background-color: #555;
-   color: white;
-   flex-basis: 100px;
-}
-
 div.content-wrapper {
    flex: 1;
    display: flex;
@@ -68,10 +64,6 @@ div.content-wrapper {
    main {
       flex: 6;
    }
-}
-
-nav {
-   background-color: green;
 }
 
 main {
@@ -86,7 +78,8 @@ div.sidebar {
    }
 }
 
-a.active {
-   background-color: $primary;
+.center-flex {
+   display: flex;
+   justify-content: center;
 }
 </style>

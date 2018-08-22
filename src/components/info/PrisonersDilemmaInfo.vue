@@ -1,11 +1,12 @@
 <template>
    <div>
 
-      <h3>The Prisoner's Dilemma</h3>
+      <h1 class="text-center font-weight-bold mb-3">The Prisoner's Dilemma</h1>
 
-      <p>The prisoner's dilemma is a classic hypothetical scenario in game theory. Here's the situation:</p>
+      <p>The <strong>prisoner's dilemma</strong> is a classic hypothetical scenario in game theory. 
+      Here's the situation:</p>
 
-      <blockquote>
+      <div class="stand-out font-italic mb-3">
          Two accomplices have been arrested for a crime, but neither has confessed to committing it. The police 
 	      interrogate them separately, offering three alternatives:
 
@@ -22,7 +23,7 @@
                and go to jail for 1 year.
             </li>
          </ol>
-      </blockquote>
+      </div>
 
       <p>
          In other words, both players have the choice of either <strong>cooperating</strong> with their 
@@ -39,7 +40,7 @@
          <payoff-matrix T="0" S="-3" R="-1" P="-2" />
       </div>
 
-      <h3>The Iterated Prisoner's Dilemma</h3>
+      <h3 class="mt-5">The Iterated Prisoner's Dilemma</h3>
 
       <p>
          The iterated prisoner's dilemma is a game that expands on the prisoner's dilemma, by having it played 
@@ -51,28 +52,30 @@
          Each turn is as follows:
       </p>
 
-      <ul>
-         <li>
-            Both players pick a move: cooperate or defect. Neither player is aware of the other's move.
-         </li>
+      <div class="stand-out mb-3">
+         <ul>
+            <li>
+               Both players pick a move: cooperate or defect. Neither player is aware of the other's move.
+            </li>
 
-         <li>
-            At the end of the turn, each player is rewarded their respective payoff, per the payoff matrix.
-            (For example, if player 1 cooperates and player 2 defects, player 2 receives 0 while player 1 
-            receives -3.)
-         </li>
+            <li>
+               At the end of the turn, each player is rewarded their respective payoff, per the payoff matrix.
+               (For example, if player 1 cooperates and player 2 defects, player 2 receives 0 while player 1 
+               receives -3.)
+            </li>
 
-         <li>
-            The game proceeds to the next turn, with both players aware of the result of the previous turn.
-         </li>
-      </ul>
+            <li>
+               The game proceeds to the next turn, with both players aware of the result of the previous turn.
+            </li>
+         </ul>
+      </div>
 
       <p>
          After a set number of turns, the game ends. The winner is the player who has the
          highest payoff score by the end. (Keep in mind, the payoffs are all negative.)
       </p>
 
-      <h3>Prisoner Strategies</h3>
+      <h3 class="mt-5">Prisoner Strategies</h3>
 
       <p>
          With the game's rules in mind, there are several basic strategies that a player can employ, which 
@@ -83,9 +86,15 @@
          <strategy-table />
       </div>
 
-      <b-link @click="goToTab(2)">
-         Next: The Game of Life
-      </b-link>
+      <hr>
+
+      <div class="center-flex next-link">
+         <b-link @click="goToTab(2)">
+            <span>
+               Next: The Game of Life ⇨
+            </span>
+         </b-link>
+      </div>
    
    </div>
 </template>
@@ -98,31 +107,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-%stand-out {
-   border-left: 5px solid rgb(170, 170, 170);
-   background-color: #eee;
+h1,
+h2,
+h3 {
+   border-bottom: 1px solid #ddd;
+}
+
+ol,
+ul {
+   margin: 0;
 }
 
 .stand-out {
-   @extend %stand-out;
+   border-left: 5px solid steelblue;
+   background-color: rgba(70, 131, 180, 0.13);
    padding: 10px;
 }
 
-div {
-   text-align: center;
-}
-
-blockquote {
-   @extend %stand-out;
-   padding-left: 10px;
-   font-style: italic;
-   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
-   text-align: left;
-}
-
 ul {
-   @extend %stand-out;
    text-align: left;
 }
 
@@ -143,9 +145,22 @@ span.P {
    color: red;
 }
 
-.center-flex {
-   display: flex;
-   justify-content: center;
+.next-link {
+   font-size: 30px;
+   text-align: center;
+   font-weight: bold;
+   margin: 50px;
+   a {
+      background: steelblue;
+      padding: 10px;
+      border-radius: 10px;
+      color: white;
+      transition: all 0.3s;
+   }
+   a:hover {
+      text-decoration: none;
+      background: dodgerblue;
+   }
 }
 </style>
 

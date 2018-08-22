@@ -1,6 +1,6 @@
 <template>
    <div>
-      <h1>The Game of Life</h1>
+      <h1 class="text-center font-weight-bold mb-3">The Game of Life</h1>
 
       <p>
          The Game of Life is a well-known cellular automaton created by the British mathematician John Conway.
@@ -23,12 +23,23 @@
          <li>Any dead cell with exactly three live neighbors becomes a live cell (as if by reproduction).</li>
       </ol>
 
-      <h4>Give it a try! Click on a cell to toggle its state.</h4>
-      <GameOfLife />
+      <h3>Give it a try!</h3>
+      <p>Tip: Click on a cell to toggle its state between alive and dead.</p>
 
-      <b-link @click="goToTab(3)">
-         Next: The Prisoner's Game of Life
-      </b-link>
+      <div class="center-flex">
+         <GameOfLife />
+      </div>
+
+      <hr>
+      
+      <div class="center-flex next-link">
+         <b-link @click="goToTab(3)">
+            <span>
+               Next: The Prisoner's Game of Life ⇨
+            </span>
+         </b-link>
+      </div>
+
    </div>
 </template>
 
@@ -39,3 +50,30 @@ export default {
    components: { GameOfLife }
 };
 </script>
+
+<style lang="scss" scoped>
+h1,
+h2,
+h3 {
+   border-bottom: 1px solid #ddd;
+}
+
+.next-link {
+   font-size: 30px;
+   font-weight: bold;
+   text-align: center;
+   margin: 50px;
+   a {
+      background: steelblue;
+      padding: 10px;
+      border-radius: 10px;
+      color: white;
+      transition: all 0.3s;
+   }
+   a:hover {
+      text-decoration: none;
+      background: dodgerblue;
+   }
+}
+</style>
+

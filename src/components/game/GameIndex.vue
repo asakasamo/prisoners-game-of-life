@@ -1,6 +1,6 @@
 <template>
    <div>
-      <b-tabs>
+      <b-tabs card pills>
          <b-tab title="Game">
             <prisoner-game-board />
          </b-tab>
@@ -24,8 +24,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.center-flex {
-   display: flex;
-   justify-content: center;
-}
 </style>

@@ -1,6 +1,6 @@
 <template>
    <div>
-      <h1>The Prisoner's Game of Life</h1>
+      <h1 class="text-center font-weight-bold mb-3">The Prisoner's Game of Life</h1>
       
       <p>
          Here comes the fun part - Putting it all together!
@@ -25,13 +25,13 @@
 
       <ol>
          <li>
-            Each cell starts off with one of the basic strategies from the iterated prisoner's dilemma. 
-            <b-link>(Here they are again.)</b-link>
+            Each cell starts off with one of the basic strategies from the Iterated Prisoner's Dilemma. 
+            (If you forgot what they were, <b-link @click="goToTab(1)">click here for reference</b-link>.)
          </li>
 
          <li>
             At the beginning of every round, each cell "battles" each of its neighbors, 
-            <strong>playing 50 turns</strong> of its strategy and keeping track of its payoff scores.
+            <strong>playing 100 turns</strong> of its strategy and keeping track of its payoff scores.
          </li>
 
          <li>
@@ -44,19 +44,49 @@
          The result is a vivid display of the <strong>interactions</strong> between the different strategies!
       </p>
 
-      <h3>
+      <hr>
+
+      <h3 class="text-center">
          Enough reading - time for you to see it for yourself!
       </h3>
-
-      <b-link to="/play">
-         <h1>Play</h1>
-      </b-link>
+      
+      <div class="center-flex next-link">
+         <b-link to="/play">
+            <span>
+               ⇨ PLAY ⇦  
+            </span>
+         </b-link>
+      </div>
    </div>
 </template>
 
 <script>
 export default {
-   props: ["goToTab"],
-   components: {}
+   props: ["goToTab"]
 };
 </script>
+
+<style lang="scss" scoped>
+h1 {
+   border-bottom: 1px solid #ddd;
+}
+
+.next-link {
+   font-size: 30px;
+   font-weight: bold;
+   text-align: center;
+   margin: 50px;
+   a {
+      background: orange;
+      padding: 10px;
+      border-radius: 10px;
+      color: white;
+      transition: all 0.3s;
+   }
+   a:hover {
+      text-decoration: none;
+      background: red;
+      padding: 10px 15px;
+   }
+}
+</style>

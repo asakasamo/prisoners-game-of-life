@@ -46,8 +46,6 @@ export default {
 <style lang="scss" scoped>
 table {
    border-collapse: collapse;
-   border-style: hidden;
-   background-color: #eee;
    text-align: center;
 }
 

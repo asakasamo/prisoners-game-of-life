@@ -17,7 +17,7 @@
             </b-link>
          </div>
 
-         <div class="title-link">
+         <div class="title-link play">
             <b-link to="/info">
                <div class="title">
                   Play
@@ -86,12 +86,18 @@
       font-size: 2.5em;
       font-weight: bold;
    }
-   .caption {
-   }
 }
 
 .title-link:hover {
-   background-color: skyblue;
+   background-color: dodgerblue;
+}
+
+.title-link.play {
+   background-color: darkorange;
+}
+
+.title-link.play:hover {
+   background-color: orange;
 }
 
 h1 {
