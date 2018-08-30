@@ -32,7 +32,12 @@
                      <input 
                         type="number" 
                         v-model="boardWidthInput"
+                        :class="{ error: !isValid(boardWidthInput) }"
                         >
+                     <b-badge 
+                        v-if="!isValid(boardWidthInput)" 
+                        class="error-badge" 
+                        variant="danger">!</b-badge>
                   </td>
                </tr>
 
@@ -42,9 +47,12 @@
                      <input 
                         type="number" 
                         v-model="boardHeightInput"
-                        v-validate="'min_value:1|max_value:20'"
-                        name="board-height"
+                        :class="{ error: !isValid(boardHeightInput) }"
                         >
+                     <b-badge 
+                        v-if="!isValid(boardHeightInput)" 
+                        class="error-badge" 
+                        variant="danger">!</b-badge>
                   </td>
                </tr>
 
@@ -152,6 +160,8 @@ export default {
       return {
          boardWidthInput: 10,
          boardHeightInput: 10,
+         boardWidth: 10,
+         boardHeight: 10,
          board: null,
          currentPopover: null,
          strategyCount: null,
@@ -183,7 +193,7 @@ export default {
             this.pastGenerations.push(this.board.cells);
             this.board.cells = Game.getNextGeneration(this.board);
             this.generationIdx++;
-         }
+         } else this.flashStabilizedMessage();
       },
       goToPrevGen() {
          this.board.cells = this.pastGenerations.pop();
@@ -227,14 +237,28 @@ export default {
       resetBoardHistory() {
          this.pastGenerations = [];
          this.generationIdx = 0;
-      }
+      },
+      flashStabilizedMessage() {
+         if (this.boardIsStabilized && !this.showStabilizedMessage) {
+            this.showStabilizedMessage = true;
+            setTimeout(() => {
+               this.showStabilizedMessage = false;
+            }, 2000);
+         }
+      },
+      isValid(input) {
+         return parseFloat(input) > 0 && parseFloat(input) < 21;
+      },
+      flashErrorPopover() {}
    },
    watch: {
       boardWidthInput() {
-         this.modifyBoardDimensions();
+         if (parseFloat(this.boardWidthInput) > 20) this.boardWidthInput = 20;
+         if (this.isValid(this.boardWidthInput)) this.modifyBoardDimensions();
       },
       boardHeightInput() {
-         this.modifyBoardDimensions();
+         if (parseFloat(this.boardHeightInput) > 20) this.boardHeightInput = 20;
+         if (this.isValid(this.boardHeightInput)) this.modifyBoardDimensions();
       },
       board: {
          deep: true,
@@ -244,12 +268,7 @@ export default {
          }
       },
       boardIsStabilized() {
-         if (this.boardIsStabilized) {
-            this.showStabilizedMessage = true;
-            setTimeout(() => {
-               this.showStabilizedMessage = false;
-            }, 2000);
-         }
+         this.flashStabilizedMessage();
       }
    },
    components: {
@@ -313,7 +332,29 @@ export default {
    }
 }
 
+.error-badge {
+   position: absolute;
+   margin-left: 5px;
+   margin-top: 10px;
+}
+
+.error {
+   color: red;
+   border-color: red;
+   border-style: solid;
+}
+
 .population {
    align-self: flex-start;
+}
+
+input:focus {
+   box-shadow: none;
+   outline: none;
+}
+
+input {
+   padding: 2px;
+   margin: 2px;
 }
 </style>
