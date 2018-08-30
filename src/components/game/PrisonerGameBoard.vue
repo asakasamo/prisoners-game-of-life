@@ -1,9 +1,29 @@
 <template>
    <div class="center-flex main-wrapper">
       <div class="controls">
-         <b-card class="text-center">
+
+         <b-card class="text-center">   
             <div slot="header">
-               Settings
+               <strong>Controls</strong>
+            </div>   
+            <b-button-group vertical>
+               <b-btn @click="goToPrevGen()" :disabled="generationIdx === 0">
+                  Previous Round
+               </b-btn>
+
+               <b-btn @click="goToNextGen()" variant="success">
+                  Next Round
+               </b-btn>
+
+               <b-btn @click="autoPlay()" variant="info">
+                  Auto-play
+               </b-btn>
+            </b-button-group>
+         </b-card>
+
+         <b-card class="text-center mt-2 ">
+            <div slot="header">
+               <strong>Settings</strong>
             </div>
             <table>
                <tr>
@@ -23,89 +43,84 @@
 
                <tr>
                   <td colspan="2">
-                     <b-btn @click="randomizeBoard">
+                     <b-btn @click="randomizeBoard" variant="primary">
                         Randomize Board
                      </b-btn>
                   </td>
                </tr>
             </table>
          </b-card>
-
-         <b-card class="mt-2 text-center">   
-            <div slot="header">
-               Controls
-            </div>   
-            <b-button-group vertical>
-               <b-btn @click="goToPrevGen()" :disabled="generationIdx === 0">
-                  Previous Round
-               </b-btn>
-
-               <b-btn @click="goToNextGen()">
-                  Next Round
-               </b-btn>
-
-               <b-btn @click="autoPlay()">
-                  Auto-play
-               </b-btn>
-            </b-button-group>
-         </b-card>
       </div>
       
       <div class="board center-flex">
-         <b-card> 
-            <table>
-               <tr v-for="(row, x) in board.cells" :key="x">
-                  <td v-for="(col, y) in row" :key="y">
-                     <div
-                        :id="`cell-${x}-${y}`"
-                        :style="{ backgroundColor: board.cells[x][y].color }"
-                        @click="setPopoverCell(x, y)"
-                        :class="{ selected: isCurrentPopoverCell(x, y) }"
-                        >
-
-                        <!-- Strategy picker popover -->
-                        <b-popover
-                           :target="`cell-${x}-${y}`"
-                           placement="right"
-                           :show="isCurrentPopoverCell(x, y)"
-                           triggers=""
+         <div>
+            <b-alert show dismissible variant="info">
+               <strong>Tip:</strong> Click on any cell to modify its strategy!
+            </b-alert>
+            <b-card class="center-flex centered" id="board-wrapper">
+               <table>
+                  <tr v-for="(row, x) in board.cells" :key="x">
+                     <td v-for="(col, y) in row" :key="y">
+                        <div
+                           :id="`cell-${x}-${y}`"
+                           :style="{ backgroundColor: board.cells[x][y].color }"
+                           @click="setPopoverCell(x, y)"
+                           :class="{ selected: isCurrentPopoverCell(x, y) }"
                            >
 
-                           <!-- Popover Title -->
-                           <template slot="title">
-                              <h6>
-                                 Select a strategy
+                           <!-- Strategy picker popover -->
+                           <b-popover
+                              :target="`cell-${x}-${y}`"
+                              placement="right"
+                              :show="isCurrentPopoverCell(x, y)"
+                              triggers=""
+                              >
 
-                                 <!-- Close button -->
-                                 <b-btn @click="currentPopover = null" class="close-btn btn-danger">
-                                    <span>
-                                       &times;
-                                    </span>
-                                 </b-btn>
-                              </h6>
-                           </template>
+                              <!-- Popover Title -->
+                              <template slot="title">
+                                 <h6>
+                                    Select a strategy
 
-                           <!-- Strategy picker -->
-                           <strategy-picker
-                              :selected-id="board.cells[x][y].stratId" 
-                              v-on:select-strat-id="(stratId) => setCellStrategy(stratId, x, y)" 
-                              />
-                        </b-popover>
+                                    <!-- Close button -->
+                                    <b-btn @click="currentPopover = null" class="close-btn btn-danger">
+                                       <span>
+                                          &times;
+                                       </span>
+                                    </b-btn>
+                                 </h6>
+                              </template>
 
-                        <span v-if="showScores" class="score">
-                           {{ scores[x][y] }}
-                        </span>
-                     </div>
-                  </td>
-               </tr>
-            </table>
-         </b-card>
+                              <!-- Strategy picker -->
+                              <strategy-picker
+                                 :selected-id="board.cells[x][y].stratId" 
+                                 v-on:select-strat-id="(stratId) => setCellStrategy(stratId, x, y)" 
+                                 />
+                           </b-popover>
+
+                           <span v-if="showScores" class="score">
+                              {{ scores[x][y] }}
+                           </span>
+                        </div>
+                     </td>
+                  </tr>
+               </table>
+            </b-card>
+            
+            <b-popover 
+               target="board-wrapper" 
+               :show.sync="showStabilizedMessage"
+               placement="top"
+               triggers=""
+               >
+               The board has stabilized.
+            </b-popover>
+         </div>
       </div>
       
       <div class="population center-flex">
          <b-card>
-            <div slot="header">
-               Board Population
+            <div slot="header" class="text-center">
+               <strong>Board Population</strong>
             </div>
             <StrategyCounter :strategyCount="this.strategyCount" />
          </b-card>
@@ -129,14 +144,18 @@ export default {
          currentPopover: null,
          strategyCount: null,
          scores: null,
-         showScores: false,
+         showScores: true,
          pastGenerations: [],
-         generationIdx: 0
+         generationIdx: 0,
+         showStabilizedMessage: false
       };
    },
    computed: {
       boardIsStabilized() {
-         return this.board.hasSameCells(Game.getNextGeneration(this.board));
+         return (
+            this.board &&
+            this.board.hasSameCells(Game.getNextGeneration(this.board))
+         );
       }
    },
    created() {
@@ -212,6 +231,14 @@ export default {
             this.strategyCount = this.board.getStrategyCounterStrings();
             this.scores = Game.getScoresForGeneration(this.board);
          }
+      },
+      boardIsStabilized() {
+         if (this.boardIsStabilized) {
+            this.showStabilizedMessage = true;
+            setTimeout(() => {
+               this.showStabilizedMessage = false;
+            }, 2000);
+         }
       }
    },
    components: {
@@ -222,7 +249,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-table {
+.centered {
+   align-items: center;
 }
 
 .close-btn {
@@ -241,15 +269,6 @@ table {
    > div {
       padding: 10px;
    }
-
-   > div:first-child {
-   }
-
-   > div:nth-child(2) {
-   }
-
-   > div:last-child {
-   }
 }
 
 .controls {
@@ -258,26 +277,32 @@ table {
    }
 }
 
-.board td {
-   min-width: 30px;
-   min-height: 30px;
-   width: 30px;
-   height: 30px;
-   padding: 2px;
+.board {
+   td {
+      min-width: 30px;
+      min-height: 30px;
+      width: 30px;
+      height: 30px;
+      padding: 2px;
 
-   > div {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-   }
-   div:hover,
-   div.selected {
-      cursor: pointer;
-      border: 1px solid yellow;
-   }
+      > div {
+         width: 100%;
+         height: 100%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+      }
+      div:hover,
+      div.selected {
+         cursor: pointer;
+         border: 1px solid yellow;
+      }
 
-   transition: all 0.2s;
+      transition: all 0.2s;
+   }
+}
+
+.population {
+   align-self: flex-start;
 }
 </style>

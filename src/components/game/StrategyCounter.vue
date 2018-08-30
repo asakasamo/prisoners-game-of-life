@@ -45,7 +45,7 @@ th {
 }
 
 .strategy {
-   width: 160px;
+   width: 180px;
 }
 
 div.strat-color {

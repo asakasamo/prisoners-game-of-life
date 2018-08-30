@@ -14,12 +14,20 @@
          (If you already get the gist of it, you can skip all of this and <a href="/play">play the game!)</a>
       </p>
 
-      <div class="center-flex">
-         <div class="list-group links">
-            <a class="list-group-item" href="#" @click="goToTab(1)">The Prisoner's Dilemma</a>
-            <a class="list-group-item" href="#" @click="goToTab(2)">The Game of Life</a>
-            <a class="list-group-item" href="#" @click="goToTab(3)">The Prisoner's Game of Life</a>
-         </div>
+      <div class="center-flex links">
+         <b-list-group>
+            <b-list-group-item href="#" variant="primary" @click="goToTab(1)">
+               The Prisoner's Dilemma ⇨
+            </b-list-group-item>
+            
+            <b-list-group-item href="#" variant="primary" @click="goToTab(2)">
+               The Game of Life ⇨
+            </b-list-group-item>
+            
+            <b-list-group-item href="#" variant="primary" @click="goToTab(3)">
+               The Prisoner's Game of Life ⇨
+            </b-list-group-item>
+         </b-list-group>
       </div>
          
    </div>
@@ -42,9 +50,7 @@ h1 {
 }
 
 .links {
-   display: inline-block;
-   margin: auto;
-   width: 300px;
    text-align: center;
+   font-weight: bold;
 }
 </style>

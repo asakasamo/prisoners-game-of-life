@@ -7,7 +7,7 @@
 
       <div class="title-nav">
          <div class="title-link">
-            <b-link to="/info">
+            <b-link to="/learn">
                <div class="title">
                   Learn
                </div>
@@ -18,7 +18,7 @@
          </div>
 
          <div class="title-link play">
-            <b-link to="/info">
+            <b-link to="/play">
                <div class="title">
                   Play
                </div>

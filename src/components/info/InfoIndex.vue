@@ -1,7 +1,7 @@
 <template>   
    <div>
-
-      <b-card no-body class="m-3">
+      <site-header />
+      <div class="content-wrapper">
          <b-tabs pills card v-model="tabIndex" nav-class="tab-style">
             <b-tab title="Introduction" :title-link-class="tabStyleClass(0)">
                <Introduction v-bind="{ goToTab }" />
@@ -16,8 +16,7 @@
                <FullGameInfo v-bind="{ goToTab }" />
             </b-tab>
          </b-tabs>
-      </b-card>
-      
+      </div>
 
    </div>
 </template>

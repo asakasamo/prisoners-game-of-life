@@ -4,7 +4,7 @@
       <div class="center-flex">
          <div class="mr-3 center-flex">
             <b-button-group vertical>
-               <b-btn @click="nextGenClick()" variant="info">
+               <b-btn @click="nextGenClick()" variant="primary">
                   Next Step
                </b-btn>
 

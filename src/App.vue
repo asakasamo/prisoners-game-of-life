@@ -1,10 +1,8 @@
 <template>   
    <div id="app">
-      <div class="content-wrapper">
-         <main>
-            <router-view />
-         </main>
-      </div>
+      <main>
+         <router-view />
+      </main>
    </div>
 </template>
 
@@ -42,10 +40,6 @@ body {
       linear-gradient(to bottom, $grid 1px, transparent 1px);
 }
 
-header {
-   overflow: hidden;
-}
-
 #app {
    font-family: "M PLUS Rounded 1c", sans-serif;
 
@@ -54,32 +48,15 @@ header {
    flex-direction: column;
 }
 
-div.content-wrapper {
-   flex: 1;
-   display: flex;
-
-   nav {
-      flex: 1;
-   }
-   main {
-      flex: 6;
-   }
-}
-
-main {
-}
-
-div.sidebar {
-   margin-top: 100px;
-   display: flex;
-   flex-direction: column;
-   a {
-      flex: 1;
-   }
-}
-
 .center-flex {
    display: flex;
    justify-content: center;
+}
+
+.content-wrapper {
+   margin: 30px;
+   background-color: rgba(244, 250, 255, 0.7);
+   border-radius: 20px;
+   border: 1px solid rgba(70, 131, 180, 0.25);
 }
 </style>

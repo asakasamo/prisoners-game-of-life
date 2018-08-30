@@ -16,8 +16,8 @@ export default new Router({
          component: Home
       },
       {
-         path: "/info",
-         name: "info",
+         path: "/learn",
+         name: "learn",
          component: InfoIndex
       },
       {
