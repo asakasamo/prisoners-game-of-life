@@ -28,12 +28,24 @@
             <table>
                <tr>
                   <td>Width</td>
-                  <td><input type="number" v-model="boardWidthInput"></td>
+                  <td>
+                     <input 
+                        type="number" 
+                        v-model="boardWidthInput"
+                        >
+                  </td>
                </tr>
 
                <tr>
                   <td>Height</td>
-                  <td><input type="number" v-model="boardHeightInput"></td>
+                  <td>
+                     <input 
+                        type="number" 
+                        v-model="boardHeightInput"
+                        v-validate="'min_value:1|max_value:20'"
+                        name="board-height"
+                        >
+                  </td>
                </tr>
 
                <tr>
@@ -98,7 +110,7 @@
                            </b-popover>
 
                            <span v-if="showScores" class="score">
-                              {{ scores[x][y] }}
+                              {{ scores ? scores[x][y] : "" }}
                            </span>
                         </div>
                      </td>
@@ -152,10 +164,9 @@ export default {
    },
    computed: {
       boardIsStabilized() {
-         return (
-            this.board &&
-            this.board.hasSameCells(Game.getNextGeneration(this.board))
-         );
+         if (this.board)
+            return this.board.hasSameCells(Game.getNextGeneration(this.board));
+         return false;
       }
    },
    created() {
