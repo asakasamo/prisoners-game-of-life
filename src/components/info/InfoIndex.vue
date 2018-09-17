@@ -42,6 +42,7 @@ export default {
    methods: {
       goToTab(idx) {
          this.tabIndex = idx;
+         window.scrollTo(0, 0);
       },
       tabStyleClass(idx) {
          if (this.tabIndex === idx) {
